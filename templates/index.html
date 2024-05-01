@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>影迹探索</title>
+    <link rel="stylesheet" href="static/plugins/bootstrap-4.6.2/css/bootstrap.css">
+    <link rel="stylesheet" href="static/plugins/font-awesome-4.7.0/css/font-awesome.css">
+    <style>
+        .banner {
+            height: 150px;
+        }
+
+        .banner .title {
+            margin-top: -50px;
+            font-size: 3.0rem;
+            color: #27a;
+        }
+
+        .banner .subtitle {
+            color: #686868;
+            font-size: 1.0rem;
+        }
+
+        .search {
+            background: lightsteelblue;
+        }
+
+        .search .forms {
+            margin-top: 30px;
+        }
+
+        .movie {
+            display: inline-block;
+            margin-left: 5px;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+<div class="jumbotron jumbotron-fluid banner">
+    <div class="container">
+        <h1 class="display-4 title">影幕之间，梦境启航</h1>
+        <p class="lead subtitle" style="color: #343a40">
+            探索电影世界的无尽可能性！无论您是想要寻找一部经典的老电影，还是追逐最新的热门影片，我们都能满足您的所有需求。让电影的魔力带领您走进不同的世界，体验别样的情感和冒险！</p>
+    </div>
+</div>
+
+<div class="container-fluid clearfix" style="margin-top: -30px;">
+    <div class="row">
+        <div class="col-sm-3 search">
+            <form action="">
+                <div class="form-group forms">
+                    <input type="text" class="form-control" id="searchText" aria-describedby="emailHelp"
+                           name="searchText">
+                    <small id="emailHelp" class="form-text text-muted">请输入任何您想查找的内容</small>
+                </div>
+                <button type="submit" class="btn btn-primary">
+                    <i class="fa fa-search" aria-hidden="true"></i>
+                </button>
+            </form>
+        </div>
+        <div class="col-sm-9">
+            {% for item in movie_list %}
+                <div class="card movie" style="width: 18rem;">
+                    <img src="{{ item.img }}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h3 class="card-title">{{ item.title }}</h3>
+                        <p class="card-text">{{ item.intros }}</p>
+                        <a href="{{ item.nexturl }}" class="btn btn-primary">查看详情</a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<script src="static/js/jquery-3.7.1.min.js"></script>
+<script src="static/plugins/bootstrap-4.6.2/js/bootstrap.min.js"></script>
+</body>
+</html>
