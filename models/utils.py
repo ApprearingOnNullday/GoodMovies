@@ -2,6 +2,7 @@ import jieba
 import logging
 from models.config import *
 import os
+import pickle
 
 jieba.setLogLevel(logging.INFO)
 
@@ -26,6 +27,16 @@ def text_cut(text):
             words.append(word)
     return words
 
+# 以二进制形式缓存到文件
+def dump_cache(object, path):
+    pickle.dump(object, open(path, "wb"))
+
+# 从文件中读取内容
+def load_cache(path):
+    return pickle.load(open(path, "rb"))
+
 if __name__ == '__main__':
-    print(text_cut("我爱北京的天安门。"))
-    print(get_stopwords())
+    # print(text_cut("我爱北京的天安门。"))
+    # print(get_stopwords())
+    # dump_cache(({'a':1}, [{'b':2}]), './data/cache/test.pkl')
+    print(load_cache("./data/cache/test.pkl"))

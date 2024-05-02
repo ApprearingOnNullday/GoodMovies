@@ -6,23 +6,25 @@ from models.model import *
 import numpy as np
 
 # 模糊搜索
-def fuzzy_search(searchText, topK = 5):
+def fuzzy_search(searchText, topK = 6):
     # 分割检索词
     words = text_cut(searchText)
     # 获得电影语料库、iwf_dict和tfiwf_list
     corpus = []  # 语料库列表
     # 读每个文件，构建语料库
-    for i in range(1, 251, 1):
-        file_path = os.path.join(CORPUS_PATH, f"top{i}.txt")
-        with open(file_path, 'r', encoding='utf-8') as file:
-            content = file.read()  # 读取文件全部内容
-            corpus.append(content)  # 将内容添加到列表中
-    model = TfiwfModel()
-    model.load_corpus(corpus)
-    # iwf_dict
-    iwf_dict = model.compute_iwf_value()
-    # tfiwf_list
-    tfiwf_list = model.compute_tfiwf_value()
+    # for i in range(1, 251, 1):
+    #     file_path = os.path.join(CORPUS_PATH, f"top{i}.txt")
+    #     with open(file_path, 'r', encoding='utf-8') as file:
+    #         content = file.read()  # 读取文件全部内容
+    #         corpus.append(content)  # 将内容添加到列表中
+    # model = TfiwfModel()
+    # model.load_corpus(corpus)
+    # # iwf_dict
+    # iwf_dict = model.compute_iwf_value()
+    # # tfiwf_list
+    # tfiwf_list = model.compute_tfiwf_value()
+    # 从缓存cache文件中加载:1.语料库列表 2.语料库中所有词的iwf值 3.每篇文档的tfiwf_list
+    corpus, iwf_dict, tfiwf_list = load_cache(CACHE_PATH)
     # 筛选检索词中在iwf_dict中的词
     words = [word for word in words if word in iwf_dict.keys()]
     # todo：倒排索引，这步之后去倒排索引中找words在哪些文档中出现
